@@ -28,14 +28,20 @@ namespace Day30CabInvoiceGenerator
                 Time = Time
             });
         }
-        public double CalculateAggregate()
+        public InvoiceSummary CalculateAggregate()
         {
             double fair = 0;
-            foreach(Ride ride in rides)
+            foreach (Ride ride in rides)
             {
                 fair += CalculateFare(ride.distance, ride.Time);
             }
-            return fair;
+            var summary = new InvoiceSummary()
+            {
+                noOfRide = rides.Count,
+                AvgFare = fair / rides.Count,
+                totalFare =(int) fair
+            };
+            return summary;
         }
     }
 }

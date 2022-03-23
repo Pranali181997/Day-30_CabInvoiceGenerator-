@@ -23,15 +23,30 @@ namespace CabInvoiceGeneratorTest
         {
             double fair = cabInvoiceGenerator.CalculateFare(0, 0);
             Assert.AreEqual(5, fair);
-        }
-        
+        }       
         [Test]
         public void CalAggFairAndMulRides()
         {
             cabInvoiceGenerator.AddRide(2, 5);
             cabInvoiceGenerator.AddRide(12, 15);
-            double fair = cabInvoiceGenerator.CalculateAggregate();
-            Assert.AreEqual(160, fair);
+            var invoiceSummary = cabInvoiceGenerator.CalculateAggregate();
+            Assert.AreEqual(160, invoiceSummary.totalFare);
+        }
+        [Test]
+        public void CalAggFairAndMulRidesTestNoOfRide()
+        {
+            cabInvoiceGenerator.AddRide(2, 5);
+            cabInvoiceGenerator.AddRide(12, 15);
+            var invoiceSummary = cabInvoiceGenerator.CalculateAggregate();
+            Assert.AreEqual(2, invoiceSummary.noOfRide);
+        }
+        [Test]
+        public void AddMultipleRIdeToCheckAgrFare()
+        {
+            cabInvoiceGenerator.AddRide(2, 5);
+            cabInvoiceGenerator.AddRide(12, 15);
+            var invoiceSummary = cabInvoiceGenerator.CalculateAggregate();
+            Assert.AreEqual(80, invoiceSummary.AvgFare);
         }
     }
 }
